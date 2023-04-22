@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.o.background = "dark"
 vim.g.mapleader = " "
+vim.o.timeoutlen = 1500
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -102,3 +103,5 @@ vim.cmd [[colorscheme kanagawa]]
 
 
 local map = vim.keymap.set
+
+map("n", "<leader>", "<nop>")
