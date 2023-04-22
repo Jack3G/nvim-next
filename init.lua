@@ -105,3 +105,4 @@ vim.cmd [[colorscheme kanagawa]]
 local map = vim.keymap.set
 
 map("n", "<leader>", "<nop>")
+map("n", "<leader>/", "<cmd>noh<CR>")
