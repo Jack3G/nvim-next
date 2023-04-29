@@ -85,7 +85,15 @@ require("lazy").setup({
             require("gitsigns").setup()
         end,
     },
-    "f-person/git-blame.nvim",
+    {
+        "f-person/git-blame.nvim",
+        init = function()
+            vim.g.gitblame_enabled = 0
+        end,
+        keys = {
+            { "<leader>gb", "<cmd>GitBlameToggle<CR>" },
+        },
+    },
 
     -- Looks --
     { "morhetz/gruvbox", lazy = true },
