@@ -94,6 +94,14 @@ require("lazy").setup({
             { "<leader>gb", "<cmd>GitBlameToggle<CR>" },
         },
     },
+    {
+        "TimUntersberger/neogit",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            disable_signs = true,
+            disable_hint = true,
+        },
+    },
 
     -- Looks --
     { "morhetz/gruvbox", lazy = true },
