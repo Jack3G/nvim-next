@@ -96,9 +96,6 @@ require("lazy").setup({
             require("neoscroll").setup()
         end,
     },
-
-    -- Languages --
-    --"nvim-orgmode/orgmode" -- TODO: A proper setup for this
 })
 
 vim.cmd [[colorscheme kanagawa]]
@@ -108,3 +105,5 @@ local map = vim.keymap.set
 
 map("n", "<leader>", "<nop>")
 map("n", "<leader>/", "<cmd>noh<CR>")
+map("n", "j", "gj")
+map("n", "k", "gk")
