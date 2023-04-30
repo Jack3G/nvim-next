@@ -106,6 +106,8 @@ require("lazy").setup({
     -- Looks --
     { "morhetz/gruvbox", lazy = true },
     { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
+    { "folke/tokyonight.nvim", lazy = true },
+    { "sainnhe/sonokai", lazy = true },
     {
         "karb94/neoscroll.nvim",
         config = function()
