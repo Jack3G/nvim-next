@@ -100,6 +100,7 @@ require("lazy").setup({
             disable_signs = true,
             disable_hint = true,
         },
+        cmd = { "Neogit" },
     },
 
     -- Looks --
