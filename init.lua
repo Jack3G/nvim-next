@@ -54,6 +54,7 @@ require("lazy").setup({
         keys = {
             { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find Files" },
             { "<leader><leader>", "<cmd>Telescope<CR>" },
+            { "<leader>b", "<cmd>Telescope buffers<CR>" },
         },
         cmd = { "Telescope" },
     },
