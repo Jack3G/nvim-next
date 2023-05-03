@@ -27,6 +27,9 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 
 vim.o.termguicolors = true
+vim.g.netrw_banner = 0
+
+vim.o.spell = true
 
 
 require("lazy").setup({
