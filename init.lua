@@ -103,6 +103,47 @@ require("lazy").setup({
         cmd = { "Neogit" },
     },
 
+    {
+        "neovim/nvim-lspconfig",
+        lazy = false,
+        keys = {
+            { "[d", vim.diagnostic.goto_prev },
+            { "]d", vim.diagnostic.goto_next },
+            { "gd", vim.lsp.buf.definition },
+            { "gD", vim.lsp.buf.declaration },
+            { "K", vim.lsp.buf.hover },
+        },
+        config = function()
+            local lspconfig = require("lspconfig")
+
+            lspconfig.rust_analyzer.setup({})
+            lspconfig.lua_ls.setup({
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                    },
+                },
+            })
+            lspconfig.csharp_ls.setup({})
+        end,
+    },
+
+    {
+        "simrat39/symbols-outline.nvim",
+        keys = {
+            { "<leader>lo", "<cmd>SymbolsOutline<CR>" },
+        },
+        cmd = { "SymbolsOutline" },
+        config = true,
+    },
+
+
     -- Looks --
     { "morhetz/gruvbox", lazy = true },
     { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
