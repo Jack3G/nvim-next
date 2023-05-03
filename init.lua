@@ -59,15 +59,11 @@ require("lazy").setup({
         "kylechui/nvim-surround",
         version = "*",
         event = "VeryLazy",
-        config = function()
-            require("nvim-surround").setup()
-        end,
+        config = true,
     },
     {
         "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup()
-        end,
+        config = true,
     },
 
     {
@@ -110,9 +106,7 @@ require("lazy").setup({
     { "sainnhe/sonokai", lazy = true },
     {
         "karb94/neoscroll.nvim",
-        config = function()
-            require("neoscroll").setup()
-        end,
+        config = true,
     },
 })
 
