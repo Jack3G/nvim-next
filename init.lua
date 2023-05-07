@@ -146,6 +146,45 @@ require("lazy").setup({
     },
 
 
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-emoji",
+            "onsails/lspkind.nvim",
+        },
+        config = function()
+            local cmp = require("cmp")
+            local select_behaviour = { behavior = require("cmp.types").cmp.SelectBehavior.Select }
+            cmp.setup({
+                sources = {
+                    { name = "nvim_lsp" },
+                    { name = "buffer" },
+                    { name = "path" },
+                    { name = "emoji" },
+                },
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
+                mapping = {
+                    ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+                    ["<C-e"] = cmp.mapping.abort(),
+                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-n>"] = cmp.mapping.select_next_item(select_behaviour),
+                    ["<C-p>"] = cmp.mapping.select_prev_item(select_behaviour),
+                },
+                formatting = {
+                    format = require("lspkind").cmp_format({}),
+                },
+                -- snippet = -- TODO: set up a snippet engine for cmp
+            })
+        end,
+    },
+
+
     -- Looks --
     { "morhetz/gruvbox", lazy = true },
     { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
