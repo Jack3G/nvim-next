@@ -132,6 +132,7 @@ require("lazy").setup({
                 },
             })
             lspconfig.csharp_ls.setup({})
+            lspconfig.gdscript.setup({})
         end,
     },
 
