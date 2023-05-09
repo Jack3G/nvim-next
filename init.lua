@@ -171,7 +171,7 @@ require("lazy").setup({
                 },
                 mapping = {
                     ["<Tab>"] = cmp.mapping.confirm({ select = true }),
-                    ["<C-e"] = cmp.mapping.abort(),
+                    ["<C-e>"] = cmp.mapping.abort(),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-n>"] = cmp.mapping.select_next_item(select_behaviour),
                     ["<C-p>"] = cmp.mapping.select_prev_item(select_behaviour),
