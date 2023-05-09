@@ -79,6 +79,7 @@ require("lazy").setup({
             { "<leader>gsd", "<cmd>Gitsigns diffthis<CR>" },
             { "<leader>gsp", "<cmd>Gitsigns preview_hunk<CR>" },
             { "<leader>gst", "<cmd>Gitsigns toggle_signs<CR>" },
+            { "<leader>gsr", "<cmd>Gitsigns reset_hunk<CR>" },
         },
         lazy = false,
         config = function()
@@ -112,7 +113,7 @@ require("lazy").setup({
             { "]d", vim.diagnostic.goto_next },
             { "gd", vim.lsp.buf.definition },
             { "gD", vim.lsp.buf.declaration },
-            { "K", vim.lsp.buf.hover },
+            { "<leader>k", vim.lsp.buf.hover },
         },
         config = function()
             local lspconfig = require("lspconfig")
@@ -205,3 +206,8 @@ map("n", "<leader>", "<nop>")
 map("n", "<leader>/", "<cmd>noh<CR>")
 map("n", "j", "gj")
 map("n", "k", "gk")
+map("n", "J", "6gj")
+map("n", "K", "6gk")
+map("n", "H", "^")
+map("n", "L", "$")
+map("n", "M", "J")
