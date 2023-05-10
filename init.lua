@@ -204,6 +204,8 @@ local map = vim.keymap.set
 
 map("n", "<leader>", "<nop>")
 map("n", "<leader>/", "<cmd>noh<CR>")
+map("n", "<leader>`", "<C-^>")
+
 map("n", "j", "gj")
 map("n", "k", "gk")
 map("n", "J", "6gj")
