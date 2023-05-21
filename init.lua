@@ -114,6 +114,7 @@ require("lazy").setup({
             { "gd", vim.lsp.buf.definition },
             { "gD", vim.lsp.buf.declaration },
             { "<leader>k", vim.lsp.buf.hover },
+            { "<leader>la", vim.lsp.buf.code_action },
         },
         config = function()
             local lspconfig = require("lspconfig")
