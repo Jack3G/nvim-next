@@ -186,6 +186,8 @@ require("lazy").setup({
         end,
     },
 
+    "ollykel/v-vim",
+
 
     -- Looks --
     { "morhetz/gruvbox", lazy = true },

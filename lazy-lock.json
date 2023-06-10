@@ -27,4 +27,5 @@
   "symbols-outline.nvim": { "branch": "master", "commit": "512791925d57a61c545bc303356e8a8f7869763c" },
   "telescope.nvim": { "branch": "master", "commit": "c1a2af0af69e80e14e6b226d3957a064cd080805" },
   "tokyonight.nvim": { "branch": "main", "commit": "029dca9a40260788d495929d8cc83a9a8ebb6763" }
+  "v-vim": { "branch": "master", "commit": "1dc1388bafb89072f8349dbd96f9462ae22237cb" }
 }
