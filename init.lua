@@ -216,3 +216,11 @@ map({ "n", "v", "o" }, "K", "6gk")
 map({ "n", "v", "o" }, "H", "^")
 map({ "n", "v", "o" }, "L", "$")
 map({ "n", "v", "o" }, "M", "J")
+
+-- The same thing but arrow keys bc colemak
+map({ "n", "v", "o" }, "<Down>", "gj")
+map({ "n", "v", "o" }, "<Up>", "gk")
+map({ "n", "v", "o" }, "<S-Down>", "6gj")
+map({ "n", "v", "o" }, "<S-Up>", "6gk")
+map({ "n", "v", "o" }, "<S-Left>", "^")
+map({ "n", "v", "o" }, "<S-Right>", "$")
