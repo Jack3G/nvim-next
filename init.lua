@@ -19,8 +19,8 @@ vim.o.background = "dark"
 vim.g.mapleader = " "
 vim.o.timeoutlen = 1500
 
-vim.o.number = true
-vim.o.relativenumber = true
+-- vim.o.number = true
+-- vim.o.relativenumber = true
 
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -106,80 +106,74 @@ require("lazy").setup({
     },
 
     {
-        "neovim/nvim-lspconfig",
-        lazy = false,
-        keys = {
-            { "[d", vim.diagnostic.goto_prev },
-            { "]d", vim.diagnostic.goto_next },
-            { "gd", vim.lsp.buf.definition },
-            { "gD", vim.lsp.buf.declaration },
-            { "<leader>k", vim.lsp.buf.hover },
-            { "<leader>la", vim.lsp.buf.code_action },
+        'stevearc/aerial.nvim',
+        opts = {},
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
         },
-        config = function()
-            local lspconfig = require("lspconfig")
+    },
 
-            lspconfig.rust_analyzer.setup({})
-            lspconfig.lua_ls.setup({
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { "vim" },
-                        },
-                        workspace = {
-                            -- Make the server aware of Neovim runtime files
-                            library = vim.api.nvim_get_runtime_file("", true),
-                        },
-                    },
+    { -- :TSBufEnable highlight
+        "nvim-treesitter/nvim-treesitter",
+        build = function()
+            vim.cmd [[TSUpdate]]
+        end,
+        config = function()
+            require("nvim-treesitter.configs").setup {
+                auto_install = true,
+
+                highlight = {
+                    enable = true,
                 },
-            })
-            lspconfig.csharp_ls.setup({})
-            lspconfig.gdscript.setup({})
+            }
         end,
     },
 
     {
-        "simrat39/symbols-outline.nvim",
-        keys = {
-            { "<leader>lo", "<cmd>SymbolsOutline<CR>" },
+        "nvim-treesitter/nvim-treesitter-context",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
         },
-        cmd = { "SymbolsOutline" },
-        config = true,
     },
 
 
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-emoji",
-            "onsails/lspkind.nvim",
+            "hrsh7th/cmp-nvim-lua",
+            "ray-x/cmp-treesitter"
         },
         config = function()
             local cmp = require("cmp")
             local select_behaviour = { behavior = require("cmp.types").cmp.SelectBehavior.Select }
+            local next_func = cmp.mapping.select_next_item(select_behaviour)
+            local prev_func = cmp.mapping.select_prev_item(select_behaviour)
             cmp.setup({
                 sources = {
-                    { name = "nvim_lsp" },
                     { name = "buffer" },
                     { name = "path" },
                     { name = "emoji" },
+                    { name = "nvim_lua" },
+                    { name = "treesitter" },
                 },
                 window = {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
                 },
                 mapping = {
-                    ["<Tab>"] = cmp.mapping.confirm({ select = true }),
-                    ["<C-e>"] = cmp.mapping.abort(),
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<C-n>"] = cmp.mapping.select_next_item(select_behaviour),
-                    ["<C-p>"] = cmp.mapping.select_prev_item(select_behaviour),
-                },
-                formatting = {
-                    format = require("lspkind").cmp_format({}),
+                    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+                    ["<Esc>"] = cmp.mapping.abort(),
+
+                    ["<C-n>"]   = next_func,
+                    ["<Down>"]  = next_func,
+                    ["<Tab>"]   = next_func,
+                    ["<C-p>"]   = prev_func,
+                    ["<Up>"]    = prev_func,
+                    ["<S-Tab>"] = prev_func,
                 },
                 -- snippet = -- TODO: set up a snippet engine for cmp
             })
@@ -191,16 +185,16 @@ require("lazy").setup({
 
     -- Looks --
     { "morhetz/gruvbox", lazy = true },
-    { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
+    { "rebelot/kanagawa.nvim", lazy = true },
     { "folke/tokyonight.nvim", lazy = true },
-    { "sainnhe/sonokai", lazy = true },
+    { "sainnhe/sonokai", lazy = false, priority = 1000 },
     {
         "karb94/neoscroll.nvim",
         config = true,
     },
 })
 
-vim.cmd [[colorscheme kanagawa]]
+vim.cmd [[colorscheme sonokai]]
 
 
 local map = vim.keymap.set
