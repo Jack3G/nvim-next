@@ -166,7 +166,7 @@ require("lazy").setup({
                 },
                 mapping = {
                     ["<CR>"] = cmp.mapping.confirm({ select = false }),
-                    ["<Esc>"] = cmp.mapping.abort(),
+                    ["<C-g>"] = cmp.mapping.abort(),
 
                     ["<C-n>"]   = next_func,
                     ["<Down>"]  = next_func,
