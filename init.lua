@@ -218,3 +218,30 @@ map({ "n", "v", "o" }, "<S-Down>", "6gj")
 map({ "n", "v", "o" }, "<S-Up>", "6gk")
 map({ "n", "v", "o" }, "<S-Left>", "^")
 map({ "n", "v", "o" }, "<S-Right>", "$")
+
+
+local function daily_note()
+    local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
+    local date_string = os.date("%Y-%m-%d")
+    local time_string = "T"..os.date("%X").."+10:00"
+
+    local today_file = vault_dir.."/Daily/"..date_string..".md"
+    local already_exists = vim.fn.filereadable(today_file)
+
+    local template_contents = {
+        "---",
+        "title: Daily Note for "..date_string,
+        "date: "..date_string..time_string,
+        "---",
+        "",
+        "",
+    }
+
+    vim.cmd("edit "..today_file)
+    vim.bo.tw = 80
+    if already_exists == 0 then
+        vim.api.nvim_put(template_contents, "", false, true)
+    end
+end
+
+vim.api.nvim_create_user_command("DailyNote", daily_note, {})
