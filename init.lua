@@ -125,6 +125,8 @@ require("lazy").setup({
 
                 highlight = {
                     enable = true,
+
+                    disable = { "markdown", "markdown_inline" },
                 },
             }
         end,
