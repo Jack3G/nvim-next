@@ -227,7 +227,7 @@ local function daily_note()
     local date_string = os.date("%Y-%m-%d")
     local time_string = "T"..os.date("%X").."+10:00"
 
-    local today_file = vault_dir.."/Daily/"..date_string..".md"
+    local today_file = vault_dir.."/daily/"..date_string..".md"
     local already_exists = vim.fn.filereadable(today_file)
 
     local template_contents = {
