@@ -44,6 +44,7 @@ require("lazy").setup({
             vim.notify = require("notify")
         end,
     },
+
     {
         "nvim-telescope/telescope.nvim",
         version = "*",
@@ -199,29 +200,6 @@ require("lazy").setup({
 vim.cmd [[colorscheme sonokai]]
 
 
-local map = vim.keymap.set
-
-map("n", "<leader>", "<nop>")
-map("n", "<leader>/", "<cmd>noh<CR>")
-map("n", "<leader>`", "<C-^>")
-
-map({ "n", "v", "o" }, "j", "gj")
-map({ "n", "v", "o" }, "k", "gk")
-map({ "n", "v", "o" }, "J", "6gj")
-map({ "n", "v", "o" }, "K", "6gk")
-map({ "n", "v", "o" }, "H", "^")
-map({ "n", "v", "o" }, "L", "$")
-map({ "n", "v", "o" }, "M", "J")
-
--- The same thing but arrow keys bc colemak
-map({ "n", "v", "o" }, "<Down>", "gj")
-map({ "n", "v", "o" }, "<Up>", "gk")
-map({ "n", "v", "o" }, "<S-Down>", "6gj")
-map({ "n", "v", "o" }, "<S-Up>", "6gk")
-map({ "n", "v", "o" }, "<S-Left>", "^")
-map({ "n", "v", "o" }, "<S-Right>", "$")
-
-
 local function daily_note()
     local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
     local date_string = os.date("%Y-%m-%d")
@@ -247,3 +225,26 @@ local function daily_note()
 end
 
 vim.api.nvim_create_user_command("DailyNote", daily_note, {})
+
+
+local map = vim.keymap.set
+
+map("n", "<leader>", "<nop>")
+map("n", "<leader>/", "<cmd>noh<CR>")
+map("n", "<leader>`", "<C-^>")
+
+map({ "n", "v", "o" }, "j", "gj")
+map({ "n", "v", "o" }, "k", "gk")
+map({ "n", "v", "o" }, "J", "6gj")
+map({ "n", "v", "o" }, "K", "6gk")
+map({ "n", "v", "o" }, "H", "^")
+map({ "n", "v", "o" }, "L", "$")
+map({ "n", "v", "o" }, "M", "J")
+
+-- The same thing but arrow keys bc colemak
+map({ "n", "v", "o" }, "<Down>", "gj")
+map({ "n", "v", "o" }, "<Up>", "gk")
+map({ "n", "v", "o" }, "<S-Down>", "6gj")
+map({ "n", "v", "o" }, "<S-Up>", "6gk")
+map({ "n", "v", "o" }, "<S-Left>", "^")
+map({ "n", "v", "o" }, "<S-Right>", "$")
