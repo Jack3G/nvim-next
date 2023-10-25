@@ -227,11 +227,29 @@ end
 vim.api.nvim_create_user_command("DailyNote", daily_note, {})
 
 
+local function writing_width()
+    local is_textwidth_on = vim.bo.textwidth > 0
+    local preferred_columns = 80 -- TODO: maybe make this configurable?
+
+    vim.bo.textwidth = is_textwidth_on and 0 or preferred_columns
+    print("'textwidth' is now "..vim.bo.textwidth)
+end
+
+local function writing_conceal()
+    local is_conceal_on = vim.wo.conceallevel > 0
+
+    vim.wo.conceallevel = is_conceal_on and 0 or 2
+    print("'conceallevel' is now "..vim.wo.conceallevel)
+end
+
+
 local map = vim.keymap.set
 
 map("n", "<leader>", "<nop>")
 map("n", "<leader>/", "<cmd>noh<CR>")
 map("n", "<leader>`", "<C-^>")
+map("n", "<leader>ww", writing_width)
+map("n", "<leader>wc", writing_conceal)
 
 map({ "n", "v", "o" }, "j", "gj")
 map({ "n", "v", "o" }, "k", "gk")
