@@ -25,6 +25,7 @@ vim.go.timeoutlen = 1500
 vim.go.tabstop = 4
 vim.go.shiftwidth = 4
 vim.go.expandtab = true
+vim.go.linebreak = true
 
 vim.go.termguicolors = true
 vim.g.netrw_banner = 0
