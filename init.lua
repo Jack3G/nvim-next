@@ -226,19 +226,44 @@ end
 vim.api.nvim_create_user_command("DailyNote", daily_note, {})
 
 
-local function writing_width()
-    local is_textwidth_on = vim.bo.textwidth > 0
-    local preferred_columns = 80 -- TODO: maybe make this configurable?
+local function option_cycle(option_table, option_name, values)
+    assert(type(option_table) == "table")
+    assert(type(values) == "table")
+    assert(#values >= 1)
 
-    vim.bo.textwidth = is_textwidth_on and 0 or preferred_columns
-    print("'textwidth' is now "..vim.bo.textwidth)
-end
+    local known_table_name = ""
+    if option_table == vim.go then
+        known_table_name = " (set globally)"
+    elseif option_table == vim.bo then
+        known_table_name = " (set for buffer)"
+    elseif option_table == vim.wo then
+        known_table_name = " (set for window)"
+    end
 
-local function writing_conceal()
-    local is_conceal_on = vim.wo.conceallevel > 0
+    return function()
+        -- If I can't find the value, default to the first one
+        local current_value_index = 1
+        for i,v in pairs(values) do
+            if option_table[option_name] == v then
+                current_value_index = i
+                break
+            end
+        end
 
-    vim.wo.conceallevel = is_conceal_on and 0 or 2
-    print("'conceallevel' is now "..vim.wo.conceallevel)
+        local next_index = current_value_index + 1
+        if next_index > #values then
+            next_index = 1
+        end
+
+        local old_value = option_table[option_name]
+
+        option_table[option_name] = values[next_index]
+        print(string.format("'%s' set to %s (was %s)%s",
+            tostring(option_name),
+            tostring(option_table[option_name]),
+            tostring(old_value),
+            known_table_name))
+    end
 end
 
 
@@ -247,8 +272,9 @@ local map = vim.keymap.set
 map("n", "<leader>", "<nop>")
 map("n", "<leader>/", "<cmd>noh<CR>")
 map("n", "<leader>`", "<C-^>")
-map("n", "<leader>ww", writing_width)
-map("n", "<leader>wc", writing_conceal)
+map("n", "<leader>ww", option_cycle(vim.bo, "textwidth", {0, 80}))
+map("n", "<leader>wc", option_cycle(vim.wo, "conceallevel", {0, 2}))
+map("n", "<leader>ws", option_cycle(vim.wo, "spell", {false, true}))
 
 map({ "n", "v", "o" }, "j", "gj")
 map({ "n", "v", "o" }, "k", "gk")
