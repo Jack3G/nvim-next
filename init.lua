@@ -203,7 +203,7 @@ vim.cmd [[colorscheme sonokai]]
 local function daily_note()
     local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
     local date_string = os.date("%Y-%m-%d")
-    local time_string = "T"..os.date("%X").."+10:00"
+    local time_string = "_"..os.date("%X").."+10:00"
 
     local today_file = vault_dir.."/daily/"..date_string..".md"
     local already_exists = vim.fn.filereadable(today_file)
@@ -218,7 +218,6 @@ local function daily_note()
     }
 
     vim.cmd("edit "..today_file)
-    vim.bo.tw = 80
     if already_exists == 0 then
         vim.api.nvim_put(template_contents, "", false, true)
     end
