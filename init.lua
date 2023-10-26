@@ -15,21 +15,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
-vim.o.background = "dark"
+vim.go.background = "dark"
 vim.g.mapleader = " "
-vim.o.timeoutlen = 1500
+vim.go.timeoutlen = 1500
 
--- vim.o.number = true
--- vim.o.relativenumber = true
+-- vim.go.number = true
+-- vim.go.relativenumber = true
 
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.expandtab = true
+vim.go.tabstop = 4
+vim.go.shiftwidth = 4
+vim.go.expandtab = true
 
-vim.o.termguicolors = true
+vim.go.termguicolors = true
 vim.g.netrw_banner = 0
 
-vim.o.spell = true
+vim.go.spell = true
 
 
 require("lazy").setup({
