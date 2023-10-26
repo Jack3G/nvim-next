@@ -200,10 +200,19 @@ require("lazy").setup({
 vim.cmd [[colorscheme sonokai]]
 
 
+-- Eric Feliksik - http://lua-users.org/wiki/TimeZone
+local function get_timezone_offset(ts)
+	local utcdate   = os.date("!*t", ts)
+	local localdate = os.date("*t", ts)
+	localdate.isdst = false -- this is the trick
+	return os.difftime(os.time(localdate), os.time(utcdate))
+end
+
 local function daily_note()
     local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
     local date_string = os.date("%Y-%m-%d")
-    local time_string = "_"..os.date("%X").."+10:00"
+    -- The ! in the date string means use UTC
+    local time_string = os.date("_%X") .. os.date("!+%H:%M", get_timezone_offset())
 
     local today_file = vault_dir.."/daily/"..date_string..".md"
     local already_exists = vim.fn.filereadable(today_file)
