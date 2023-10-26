@@ -32,6 +32,8 @@ vim.g.netrw_banner = 0
 
 vim.go.spell = true
 
+local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
+
 
 require("lazy").setup({
     -- Functional --
@@ -54,9 +56,16 @@ require("lazy").setup({
             "nvim-tree/nvim-web-devicons",
         },
         keys = {
-            { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find Files" },
             { "<leader><leader>", "<cmd>Telescope<CR>" },
+            { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find Files" },
             { "<leader>b", "<cmd>Telescope buffers<CR>" },
+
+            { "<leader>vf", "<cmd>Telescope find_files search_dir={\""..
+                vault_dir.. "\"} cwd="..vault_dir.."<CR>",
+                desc = "Find vault file" },
+            { "<leader>vg", "<cmd>Telescope live_grep search_dir={\""..
+                vault_dir.. "\"} cwd="..vault_dir.."<CR>",
+                desc = "Search vault"},
         },
         cmd = { "Telescope" },
     },
@@ -108,7 +117,7 @@ require("lazy").setup({
     },
 
     {
-        'stevearc/aerial.nvim',
+        "stevearc/aerial.nvim",
         opts = {},
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -210,7 +219,6 @@ local function get_timezone_offset(ts)
 end
 
 local function daily_note()
-    local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
     local date_string = os.date("%Y-%m-%d")
     -- The ! in the date string means use UTC
     local time_string = os.date("_%X") .. os.date("!+%H:%M", get_timezone_offset())
@@ -277,6 +285,7 @@ local function option_cycle(option_table, option_name, values)
 end
 
 
+-- also see above for plugin specific mappings
 local map = vim.keymap.set
 
 map("n", "<leader>", "<nop>")
