@@ -200,15 +200,15 @@ require("lazy").setup({
     -- Looks --
     { "morhetz/gruvbox", lazy = true },
     { "rebelot/kanagawa.nvim", lazy = true },
-    { "folke/tokyonight.nvim", lazy = true },
-    { "sainnhe/sonokai", lazy = false, priority = 1000 },
+    { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
+    { "sainnhe/sonokai", lazy = true },
     {
         "karb94/neoscroll.nvim",
         config = true,
     },
 })
 
-vim.cmd [[colorscheme sonokai]]
+vim.cmd [[colorscheme tokyonight-night]]
 
 
 -- Eric Feliksik - http://lua-users.org/wiki/TimeZone
