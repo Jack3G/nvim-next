@@ -26,6 +26,7 @@ vim.go.tabstop = 4
 vim.go.shiftwidth = 4
 vim.go.expandtab = true
 vim.go.linebreak = true
+vim.o.foldenable = false
 
 vim.go.termguicolors = true
 vim.g.netrw_banner = 0
@@ -141,6 +142,9 @@ require("lazy").setup({
                     disable = { "markdown", "markdown_inline" },
                 },
             }
+
+            vim.o.foldmethod = "expr"
+            vim.o.foldexpr = "nvim_treesitter#foldexpr()"
         end,
     },
 
