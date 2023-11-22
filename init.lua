@@ -25,13 +25,13 @@ vim.go.timeoutlen = 1500
 vim.go.tabstop = 4
 vim.go.shiftwidth = 4
 vim.go.expandtab = true
-vim.go.linebreak = true
+vim.o.linebreak = true
 vim.o.foldenable = false
 
 vim.go.termguicolors = true
 vim.g.netrw_banner = 0
 
-vim.go.spell = true
+vim.o.spell = true
 vim.g.netrw_browsex_viewer = "xdg-open"
 
 local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
