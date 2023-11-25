@@ -125,6 +125,10 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons"
         },
+        keys = {
+            { "<leader>ta",  "<cmd>AerialToggle<CR>",
+                desc = "Toggle Aerial" },
+        },
     },
 
     { -- :TSBufEnable highlight
