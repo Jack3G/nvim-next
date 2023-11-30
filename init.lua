@@ -202,6 +202,17 @@ require("lazy").setup({
         end,
     },
 
+    {
+        "ThePrimeagen/harpoon",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        keys = {
+            { "<leader>a", function() require("harpoon.mark").add_file() end,
+                desc = "Add file to harpoon list" },
+            { "<leader>h", function() require("harpoon.ui").toggle_quick_menu() end,
+                desc = "Open harpoon list" },
+        },
+    },
+
     "ollykel/v-vim",
 
 
