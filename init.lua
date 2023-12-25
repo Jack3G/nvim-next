@@ -311,9 +311,15 @@ local map = vim.keymap.set
 map("n", "<leader>", "<nop>")
 map("n", "<leader>/", "<cmd>noh<CR>")
 map("n", "<leader>`", "<C-^>")
+
 map("n", "<leader>ww", option_cycle(vim.bo, "textwidth", {0, 80}))
 map("n", "<leader>wc", option_cycle(vim.wo, "conceallevel", {0, 2}))
 map("n", "<leader>ws", option_cycle(vim.wo, "spell", {false, true}))
+
+map("n", "<leader>iu", "\"=trim(system('date +%s'))<CR>P", {
+    desc = "Insert > Unix Time"})
+map("n", "<leader>id", "\"=trim(system('date +\"%Y-%m-%d %H:%M:%S %z\"'))<CR>P", {
+    desc = "Insert > Date (~ RFC 3339)"})
 
 map({ "n", "v", "o" }, "j", "gj")
 map({ "n", "v", "o" }, "k", "gk")
