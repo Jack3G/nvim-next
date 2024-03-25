@@ -316,6 +316,7 @@ map("n", "<leader>ww", option_cycle(vim.bo, "textwidth", {0, 80}))
 map("n", "<leader>wc", option_cycle(vim.wo, "conceallevel", {0, 2}))
 map("n", "<leader>ws", option_cycle(vim.wo, "spell", {false, true}))
 map("n", "<leader>wl", option_cycle(vim.bo, "spelllang", {"en", "eo"}))
+map("n", "<leader>wv", option_cycle(vim.wo, "virtualedit", {"none", "all"}))
 
 map("n", "<leader>iu", "\"=trim(system('date +%s'))<CR>", {
     desc = "Insert > Unix Time"})
