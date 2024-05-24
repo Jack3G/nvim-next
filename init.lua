@@ -217,9 +217,10 @@ require("lazy").setup({
 
 
     -- Looks --
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     { "morhetz/gruvbox", lazy = true },
     { "rebelot/kanagawa.nvim", lazy = true },
-    { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
+    { "folke/tokyonight.nvim", lazy = true },
     { "sainnhe/sonokai", lazy = true },
     {
         "karb94/neoscroll.nvim",
@@ -227,7 +228,7 @@ require("lazy").setup({
     },
 })
 
-vim.cmd [[colorscheme tokyonight-night]]
+vim.cmd [[colorscheme catppuccin-mocha]]
 
 
 -- Eric Feliksik - http://lua-users.org/wiki/TimeZone
