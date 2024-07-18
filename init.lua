@@ -214,10 +214,10 @@ require("lazy").setup({
       config = function()
          require("mason").setup()
          require("mason-lspconfig").setup()
+
+         local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
          require("mason-lspconfig").setup_handlers({
             function(server_name)
-               local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
                require("lspconfig")[server_name].setup({
                   capabilities = cmp_capabilities,
                })
@@ -225,6 +225,7 @@ require("lazy").setup({
 
             ["lua_ls"] = function()
                require("lspconfig").lua_ls.setup({
+                  capabilities = cmp_capabilities,
                   on_init = function(client)
                      local path = client.workspace_folders[1].name
                      if vim.loop.fs_stat(path.."/.luarc.json") or vim.loop.fs_stat(path.."/.luarc.jsonc") then
@@ -262,6 +263,9 @@ require("lazy").setup({
                bufmap("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>")
             end,
          })
+
+         -- can't install with mason: language server is a part of the engine
+         require("lspconfig").gdscript.setup({ capabilities = cmp_capabilities })
       end,
    },
 
