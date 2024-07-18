@@ -167,7 +167,8 @@ require("lazy").setup({
          "hrsh7th/cmp-path",
          "hrsh7th/cmp-emoji",
          "hrsh7th/cmp-nvim-lua",
-         "ray-x/cmp-treesitter"
+         "ray-x/cmp-treesitter",
+         "hrsh7th/cmp-nvim-lsp",
       },
       config = function()
          local cmp = require("cmp")
@@ -181,6 +182,7 @@ require("lazy").setup({
                { name = "emoji" },
                { name = "nvim_lua" },
                { name = "treesitter" },
+               { name = "nvim_lsp" },
             },
             window = {
                completion = cmp.config.window.bordered(),
@@ -190,12 +192,11 @@ require("lazy").setup({
                ["<CR>"] = cmp.mapping.confirm({ select = false }),
                ["<C-g>"] = cmp.mapping.abort(),
 
-               ["<C-n>"]   = next_func,
                ["<Down>"]  = next_func,
-               ["<Tab>"]   = next_func,
-               ["<C-p>"]   = prev_func,
-               ["<Up>"]   = prev_func,
-               ["<S-Tab>"] = prev_func,
+               ["<Up>"]    = prev_func,
+
+               ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+               ["<C-f>"] = cmp.mapping.scroll_docs(4),
             },
             -- snippet = -- TODO: set up a snippet engine for cmp
          })
@@ -203,14 +204,65 @@ require("lazy").setup({
    },
 
    {
-      "ThePrimeagen/harpoon",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      keys = {
-         { "<leader>a", function() require("harpoon.mark").add_file() end,
-            desc = "Add file to harpoon list" },
-         { "<leader>h", function() require("harpoon.ui").toggle_quick_menu() end,
-            desc = "Open harpoon list" },
+      "williamboman/mason.nvim",
+      dependencies = {
+         "williamboman/mason-lspconfig.nvim",
+         "neovim/nvim-lspconfig",
+         "hrsh7th/cmp-nvim-lsp", -- needed to get capabilities
       },
+
+      config = function()
+         require("mason").setup()
+         require("mason-lspconfig").setup()
+         require("mason-lspconfig").setup_handlers({
+            function(server_name)
+               local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+               require("lspconfig")[server_name].setup({
+                  capabilities = cmp_capabilities,
+               })
+            end,
+
+            ["lua_ls"] = function()
+               require("lspconfig").lua_ls.setup({
+                  on_init = function(client)
+                     local path = client.workspace_folders[1].name
+                     if vim.loop.fs_stat(path.."/.luarc.json") or vim.loop.fs_stat(path.."/.luarc.jsonc") then
+                        return
+                     end
+
+                     client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                        runtime = { version = "LuaJIT" },
+                        workspace = {
+                           checkThirdParty = false,
+                           library = { vim.env.VIMRUNTIME },
+                        },
+                     })
+                  end,
+                  settings = { Lua = {} },
+               })
+            end,
+         })
+
+         vim.api.nvim_create_autocmd("LspAttach", {
+            desc = "setup lsp keybinds",
+            callback = function()
+               local bufmap = function(mode, lhs, rhs)
+                  local opts = { buffer = true, noremap = true }
+                  vim.keymap.set(mode, lhs, rhs, opts)
+               end
+
+               bufmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
+
+               bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+               bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
+               bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+
+               bufmap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>")
+               bufmap("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+            end,
+         })
+      end,
    },
 
    "ollykel/v-vim",
@@ -324,12 +376,12 @@ map("n", "<leader>iu", "\"=trim(system('date +%s'))<CR>", {
 map("n", "<leader>id", "\"=trim(system('date +\"%Y-%m-%d %H:%M:%S %z\"'))<CR>", {
    desc = "Insert > Date (~ RFC 3339)"})
 
-map({ "n", "v", "o" }, "j", "gj")
-map({ "n", "v", "o" }, "k", "gk")
-map({ "n", "v", "o" }, "J", "6gj")
-map({ "n", "v", "o" }, "K", "6gk")
-map({ "n", "v", "o" }, "H", "^")
-map({ "n", "v", "o" }, "L", "$")
+-- map({ "n", "v", "o" }, "j", "gj")
+-- map({ "n", "v", "o" }, "k", "gk")
+-- map({ "n", "v", "o" }, "J", "6gj")
+-- map({ "n", "v", "o" }, "K", "6gk")
+-- map({ "n", "v", "o" }, "H", "^")
+-- map({ "n", "v", "o" }, "L", "$")
 map({ "n", "v", "o" }, "M", "J")
 
 -- The same thing but arrow keys bc colemak
