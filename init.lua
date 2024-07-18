@@ -166,8 +166,6 @@ require("lazy").setup({
          "hrsh7th/cmp-buffer",
          "hrsh7th/cmp-path",
          "hrsh7th/cmp-emoji",
-         "hrsh7th/cmp-nvim-lua",
-         "ray-x/cmp-treesitter",
          "hrsh7th/cmp-nvim-lsp",
       },
       config = function()
@@ -177,12 +175,10 @@ require("lazy").setup({
          local prev_func = cmp.mapping.select_prev_item(select_behaviour)
          cmp.setup({
             sources = {
-               { name = "buffer" },
-               { name = "path" },
-               { name = "emoji" },
-               { name = "nvim_lua" },
-               { name = "treesitter" },
-               { name = "nvim_lsp" },
+               { name = "buffer", group_index = 2 },
+               { name = "path", group_index = 1 },
+               { name = "emoji", group_index = 1 },
+               { name = "nvim_lsp", group_index = 1 },
             },
             window = {
                completion = cmp.config.window.bordered(),
