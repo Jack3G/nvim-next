@@ -175,10 +175,10 @@ require("lazy").setup({
          local prev_func = cmp.mapping.select_prev_item(select_behaviour)
          cmp.setup({
             sources = {
-               { name = "buffer", group_index = 2 },
-               { name = "path", group_index = 1 },
-               { name = "emoji", group_index = 1 },
-               { name = "nvim_lsp", group_index = 1 },
+               { name = "buffer", priority = 1 },
+               { name = "path", priority = 2 },
+               { name = "emoji", priority = 2 },
+               { name = "nvim_lsp", priority = 3 },
             },
             window = {
                completion = cmp.config.window.bordered(),
