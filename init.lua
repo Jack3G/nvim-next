@@ -266,6 +266,7 @@ require("lazy").setup({
    },
 
    "ollykel/v-vim",
+   "janet-lang/janet.vim",
 
 
    -- Looks --
