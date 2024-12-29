@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.go.background = "dark"
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 vim.go.timeoutlen = 1500
 
 -- vim.go.number = true
@@ -167,6 +168,7 @@ require("lazy").setup({
          "hrsh7th/cmp-path",
          "hrsh7th/cmp-emoji",
          "hrsh7th/cmp-nvim-lsp",
+         "PaterJason/cmp-conjure",
       },
       config = function()
          local cmp = require("cmp")
@@ -179,6 +181,7 @@ require("lazy").setup({
                { name = "path", priority = 2 },
                { name = "emoji", priority = 2 },
                { name = "nvim_lsp", priority = 3 },
+               { name = "conjure", priority = 4 },
             },
             window = {
                completion = cmp.config.window.bordered(),
@@ -262,6 +265,13 @@ require("lazy").setup({
 
          -- can't install with mason: language server is a part of the engine
          require("lspconfig").gdscript.setup({ capabilities = cmp_capabilities })
+      end,
+   },
+
+   {
+      "Olical/conjure",
+      init = function()
+         vim.g["conjure#filetype#janet"] = "conjure.client.janet.stdio"
       end,
    },
 
