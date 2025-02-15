@@ -384,8 +384,8 @@ map("n", "<leader>wv", option_cycle(vim.wo, "virtualedit", {"none", "all"}))
 
 map("n", "<leader>iu", "\"=trim(system('date +%s'))<CR>", {
    desc = "Insert > Unix Time"})
-map("n", "<leader>id", "\"=trim(system('date +\"%Y-%m-%d %H:%M:%S %z\"'))<CR>", {
-   desc = "Insert > Date (~ RFC 3339)"})
+map("n", "<leader>id", "\"=trim(system('date +\"%Y-%m-%d %H:%M:%S%z\"'))<CR>", {
+   desc = "Insert > Date (RFC 3339)"})
 
 -- map({ "n", "v", "o" }, "j", "gj")
 -- map({ "n", "v", "o" }, "k", "gk")
