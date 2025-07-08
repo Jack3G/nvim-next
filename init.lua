@@ -25,7 +25,7 @@ vim.go.timeoutlen = 1500
 
 vim.o.tabstop = 3
 vim.o.shiftwidth = 3
-vim.o.expandtab = true
+vim.o.expandtab = false
 vim.o.linebreak = true
 vim.o.foldenable = false
 
