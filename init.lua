@@ -242,6 +242,7 @@ require("lazy").setup({
 
          -- can't install with mason: language server is a part of the engine
          vim.lsp.config.gdscript = { capabilities = cmp_capabilities }
+         vim.lsp.enable("gdscript") -- autostart via lspconfig
       end,
    },
 
