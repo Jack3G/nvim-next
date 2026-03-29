@@ -31,6 +31,7 @@ vim.o.foldenable = false
 
 vim.go.termguicolors = true
 vim.g.netrw_banner = 0
+vim.opt.fillchars = {eob = " "}
 
 vim.o.spell = true
 vim.g.netrw_browsex_viewer = "xdg-open"
@@ -254,9 +255,29 @@ require("lazy").setup({
       end,
    },
 
-   "ollykel/v-vim",
-   "janet-lang/janet.vim",
+   {
+      "obsidian-nvim/obsidian.nvim",
+      version = "*", -- latest release, not latest commit
+      dependencies = { "hrsh7th/nvim-cmp" },
+      opts = {
+         -- removed in the next major release @2026-03-29
+         legacy_commands = false,
 
+         ui = { ignore_conceal_warn = true },
+         frontmatter = { enabled = false }, -- stop messing with my files >:(
+         footer = { format = "{{backlinks}} backlinks", separator = "---" },
+         workspaces = {
+            { name = "myvault", path = "~/vault", },
+         },
+      },
+      keys = {
+         { "<leader>oo", "<cmd>Obsidian quick_switch<CR>" },
+         { "<leader>os", "<cmd>Obsidian search<CR>" },
+         { "<leader>ob", "<cmd>Obsidian backlinks<CR>" },
+      },
+   },
+
+   "janet-lang/janet.vim",
 
    -- Looks --
    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
