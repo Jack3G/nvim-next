@@ -270,6 +270,7 @@ require("lazy").setup({
             { name = "myvault", path = "~/vault", },
          },
       },
+      lazy = false,
       keys = {
          { "<leader>oo", "<cmd>Obsidian quick_switch<CR>" },
          { "<leader>os", "<cmd>Obsidian search<CR>" },
