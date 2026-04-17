@@ -259,19 +259,44 @@ require("lazy").setup({
       "obsidian-nvim/obsidian.nvim",
       version = "*", -- latest release, not latest commit
       dependencies = { "hrsh7th/nvim-cmp" },
-      opts = {
-         -- removed in the next major release @2026-03-29
-         legacy_commands = false,
+      config = function()
+         require("obsidian").setup({
+            -- removed in the next major release @2026-03-29
+            legacy_commands = false,
 
-         ui = { ignore_conceal_warn = true },
-         frontmatter = { enabled = false }, -- stop messing with my files >:(
-         footer = { format = "{{backlinks}} backlinks", separator = "---" },
-         workspaces = {
-            { name = "myvault", path = "~/vault", },
-         },
-      },
+            ui = { ignore_conceal_warn = true },
+            frontmatter = { enabled = false }, -- stop messing with my files >:(
+            footer = { format = "{{backlinks}} backlinks", separator = "---" },
+
+            workspaces = {
+               { name = "myvault", path = "~/vault", },
+            },
+            attachments = {
+               folder = "assets/attachments",
+               img_text_func = function(path)
+                  local name = vim.fs.basename(tostring(path))
+                  local encoded_name = require("obsidian.util").urlencode(name)
+                  return string.format("![%s](./assets/attachments/%s)",
+                     name, encoded_name)
+               end,
+               img_name_func = function()
+                  return string.format("%s_", os.date "%Y-%m-%d")
+               end,
+            },
+
+            -- stop doing the silly uid titles. just use kebab-case
+            note_id_func = require("obsidian.builtin").title_id,
+            note = { template = "basic.md" },
+            templates = {
+               folder = "templates/",
+               date_format = "YYYY-MM-DD",
+               time_format = "HH:MM:ssZZ",
+            },
+         })
+      end,
       lazy = false,
       keys = {
+         { "<leader>o", ":Obsidian " },
          { "<leader>oo", "<cmd>Obsidian quick_switch<CR>" },
          { "<leader>os", "<cmd>Obsidian search<CR>" },
          { "<leader>ob", "<cmd>Obsidian backlinks<CR>" },
