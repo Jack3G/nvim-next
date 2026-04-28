@@ -268,6 +268,7 @@ require("lazy").setup({
             frontmatter = { enabled = false }, -- stop messing with my files >:(
             footer = { format = "{{backlinks}} backlinks", separator = "---" },
 
+            new_note_location = "root",
             workspaces = {
                { name = "myvault", path = "~/vault", },
             },
@@ -300,6 +301,8 @@ require("lazy").setup({
          { "<leader>oo", "<cmd>Obsidian quick_switch<CR>" },
          { "<leader>os", "<cmd>Obsidian search<CR>" },
          { "<leader>ob", "<cmd>Obsidian backlinks<CR>" },
+         { "<leader>ot", "<cmd>Obsidian tags<CR>" },
+         { "<leader>op", "<cmd>Obsidian paste_img<CR>" },
       },
    },
 
