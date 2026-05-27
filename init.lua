@@ -259,12 +259,19 @@ require("lazy").setup({
       "obsidian-nvim/obsidian.nvim",
       version = "*", -- latest release, not latest commit
       dependencies = { "hrsh7th/nvim-cmp" },
+      lazy = false,
       config = function()
          require("obsidian").setup({
             -- removed in the next major release @2026-03-29
             legacy_commands = false,
 
-            ui = { ignore_conceal_warn = true },
+            ui = {
+               ignore_conceal_warn = true,
+
+               -- highlights
+               reference_text = {hl_group = ""}, -- link text
+               external_link_icon = {hl_group = ""}, -- link url
+            },
             frontmatter = { enabled = false }, -- stop messing with my files >:(
             footer = { format = "{{backlinks}} backlinks", separator = "---" },
 
@@ -295,7 +302,6 @@ require("lazy").setup({
             },
          })
       end,
-      lazy = false,
       keys = {
          { "<leader>o", ":Obsidian " },
          { "<leader>oo", "<cmd>Obsidian quick_switch<CR>" },
@@ -320,7 +326,18 @@ require("lazy").setup({
    },
 })
 
+local function copy_hl(from, to)
+   vim.api.nvim_set_hl(0, to, vim.api.nvim_get_hl(0, {name=from}))
+end
+
 vim.cmd [[colorscheme catppuccin-mocha]]
+
+vim.api.nvim_set_hl(0, "@markup.link.label", {link="@spell.markdown"})
+copy_hl("@markup.link", "@markup.link.url")
+copy_hl("@punctuation.bracket", "@markup.link")
+-- vim.api.nvim_set_hl(0, "@markup.link", {fg="#a6e3a1"})
+vim.api.nvim_set_hl(0, "@markup.italic", {italic=true})
+vim.api.nvim_set_hl(0, "@markup.strong", {bold=true})
 
 
 -- Eric Feliksik - http://lua-users.org/wiki/TimeZone
