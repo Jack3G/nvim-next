@@ -133,13 +133,13 @@ require("lazy").setup({
       },
    },
 
-   { -- :TSBufEnable highlight
+   {
       "nvim-treesitter/nvim-treesitter",
-      build = function()
-         vim.cmd [[TSUpdate]]
-      end,
+      branch = "main",
+      build = ":TSUpdate",
+      lazy = false,
       config = function()
-         require("nvim-treesitter.configs").setup {
+         require("nvim-treesitter").setup({
             auto_install = true,
 
             highlight = {
@@ -147,7 +147,7 @@ require("lazy").setup({
 
                disable = { "markdown", "markdown_inline" },
             },
-         }
+         })
 
          vim.o.foldmethod = "expr"
          vim.o.foldexpr = "nvim_treesitter#foldexpr()"
