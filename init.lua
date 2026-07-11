@@ -1,4 +1,5 @@
 -- nvim-next: my *next* config
+local vim = vim
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -34,6 +35,8 @@ vim.g.netrw_banner = 0
 vim.opt.fillchars = {eob = " "}
 
 vim.o.spell = true
+vim.o.spellcapcheck = ""
+
 vim.g.netrw_browsex_viewer = "xdg-open"
 
 local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
@@ -372,6 +375,25 @@ end
 
 vim.api.nvim_create_user_command("DailyNote", daily_note, {})
 
+-- crwebb85 - https://gist.github.com/crwebb85/fda79b17a7df8517d5ae0a1cc7722611
+vim.api.nvim_create_user_command('QFDiagnostics', function(args)
+	if args.args == 'ERROR' then
+		vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+	elseif args.args == 'WARN' then
+		vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN })
+	elseif args.args == 'HINT' then
+		vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.HINT })
+	elseif args.args == 'INFO' then
+		vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.INFO })
+	else
+		vim.diagnostic.setqflist({})
+	end
+end, {
+	desc = 'Adds lsp diagnostic to the Quickfix list',
+	complete = function() return { 'ERROR', 'WARN', 'HINT', 'INFO' } end,
+	nargs = '?',
+})
+
 
 local function option_cycle(option_table, option_name, values)
    assert(type(option_table) == "table")
@@ -425,6 +447,8 @@ map("n", "<leader>ww", option_cycle(vim.bo, "textwidth", {0, 80}))
 map("n", "<leader>wc", option_cycle(vim.wo, "conceallevel", {0, 2}))
 map("n", "<leader>ws", option_cycle(vim.wo, "spell", {false, true}))
 map("n", "<leader>wl", option_cycle(vim.bo, "spelllang", {"en", "eo"}))
+map("n", "<leader>wC", option_cycle(vim.bo, "spellcapcheck", -- ⬇ the default
+                                            {"", "[.?!]\\_[\\])'\"\t ]\\+"}))
 map("n", "<leader>wv", option_cycle(vim.wo, "virtualedit", {"none", "all"}))
 
 map("n", "<leader>iu", "\"=trim(system('date +%s'))<CR>", {
