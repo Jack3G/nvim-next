@@ -463,6 +463,7 @@ map("n", "<leader>id", "\"=trim(system('date +\"%Y-%m-%d %H:%M:%S%z\"'))<CR>", {
 -- map({ "n", "v", "o" }, "H", "^")
 -- map({ "n", "v", "o" }, "L", "$")
 map({ "n", "v", "o" }, "M", "J")
+map({"n", "v"}, "S", "\"+") -- by default S = cc
 
 -- The same thing but arrow keys bc colemak
 map({ "n", "v", "o" }, "<Down>", "gj")
