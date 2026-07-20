@@ -262,7 +262,10 @@ require("lazy").setup({
    {
       "obsidian-nvim/obsidian.nvim",
       version = "*", -- latest release, not latest commit
-      dependencies = { "hrsh7th/nvim-cmp" },
+      dependencies = {
+         "hrsh7th/nvim-cmp",
+         "nvim-telescope/telescope.nvim",
+      },
       lazy = false,
       config = function()
          require("obsidian").setup({
