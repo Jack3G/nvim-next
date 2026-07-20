@@ -31,12 +31,14 @@ vim.o.linebreak = true
 vim.o.foldenable = false
 
 vim.go.termguicolors = true
-vim.g.netrw_banner = 0
 vim.opt.fillchars = {eob = " "}
+vim.o.list = true
+vim.o.listchars = "tab:  >,trail:-,nbsp:+"
 
 vim.o.spell = true
 vim.o.spellcapcheck = ""
 
+vim.g.netrw_banner = 0
 vim.g.netrw_browsex_viewer = "xdg-open"
 
 local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
