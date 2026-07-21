@@ -43,13 +43,10 @@ vim.g.netrw_browsex_viewer = "xdg-open"
 
 local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
 
+vim.loader.enable()
 
 require("lazy").setup({
    -- Functional --
-   {
-      "lewis6991/impatient.nvim",
-      priority = 500,
-   },
    {
       "rcarriga/nvim-notify",
       config = function()
