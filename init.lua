@@ -86,6 +86,9 @@ require("lazy").setup({
       "numToStr/Comment.nvim",
       config = true,
    },
+   {
+      url = "https://codeberg.org/andyg/leap.nvim",
+   },
 
    {
       "lewis6991/gitsigns.nvim",
@@ -458,6 +461,9 @@ map("n", "<leader>iu", "\"=trim(system('date +%s'))<CR>", {
 map("n", "<leader>id", "\"=trim(system('date +\"%Y-%m-%d %H:%M:%S%z\"'))<CR>", {
    desc = "Insert > Date (RFC 3339)"})
 
+map({ "n", "x", "o" }, "s", "<Plug>(leap)")
+map({ "n", "x", "o" }, "S", "<Plug>(leap-from-window)")
+
 -- map({ "n", "v", "o" }, "j", "gj")
 -- map({ "n", "v", "o" }, "k", "gk")
 -- map({ "n", "v", "o" }, "J", "6gj")
@@ -465,7 +471,7 @@ map("n", "<leader>id", "\"=trim(system('date +\"%Y-%m-%d %H:%M:%S%z\"'))<CR>", {
 -- map({ "n", "v", "o" }, "H", "^")
 -- map({ "n", "v", "o" }, "L", "$")
 map({ "n", "v", "o" }, "M", "J")
-map({"n", "v"}, "S", "\"+") -- by default S = cc
+map({ "n", "v" },      "j", "\"+") -- j is right next to y & p on my little keeb. feels a bit risky, but let's try it.
 
 -- The same thing but arrow keys bc colemak
 map({ "n", "v", "o" }, "<Down>", "gj")
@@ -474,3 +480,5 @@ map({ "n", "v", "o" }, "<S-Down>", "6gj")
 map({ "n", "v", "o" }, "<S-Up>", "6gk")
 map({ "n", "v", "o" }, "<S-Left>", "^")
 map({ "n", "v", "o" }, "<S-Right>", "$")
+map({ "n", "v", "o" }, "<PageUp>", "<C-u>", {remap=true}) -- neoscroll maps
+map({ "n", "v", "o" }, "<PageDown>", "<C-d>", {remap=true})
