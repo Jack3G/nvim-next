@@ -327,11 +327,24 @@ require("lazy").setup({
    { "rebelot/kanagawa.nvim", lazy = true },
    { "folke/tokyonight.nvim", lazy = true },
    { "sainnhe/sonokai", lazy = true },
+
    {
       "karb94/neoscroll.nvim",
-      config = true,
+      config = function()
+         local neoscroll = require("neoscroll")
+         neoscroll.setup({
+            easing = "circular",
+            duration_multiplier = 0.5,
+            stop_eof = false,
+         })
+         local m = {"n","v","x"}
+         local o = {duration = 100}
+         vim.keymap.set(m, "<C-y>", function() neoscroll.scroll(-4, o) end)
+         vim.keymap.set(m, "<C-e>", function() neoscroll.scroll(4, o) end)
+      end,
    },
 })
+
 
 local function copy_hl(from, to)
    vim.api.nvim_set_hl(0, to, vim.api.nvim_get_hl(0, {name=from}))
