@@ -74,6 +74,16 @@ require("lazy").setup({
             desc = "Search vault"},
       },
       cmd = { "Telescope" },
+      opts = {
+         defaults = {
+            layout_strategy = "flex",
+            layout_config = {
+               flex = { flip_columns = 100, },
+               horizontal = { preview_cutoff = 100, },
+               vertical = { preview_cutoff = 20, preview_height = 0.3, },
+            },
+         },
+      },
    },
 
    {
