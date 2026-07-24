@@ -16,6 +16,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
+local configdir = vim.fn.stdpath("config")
+local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
+
 vim.go.background = "dark"
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
@@ -29,6 +32,7 @@ vim.o.shiftwidth = 3
 vim.o.expandtab = false
 vim.o.linebreak = true
 vim.o.foldenable = false
+vim.o.breakindent = true
 
 vim.go.termguicolors = true
 vim.opt.fillchars = {eob = " "}
@@ -36,12 +40,15 @@ vim.o.list = true
 vim.o.listchars = "tab:  >,trail:-,nbsp:+"
 
 vim.o.spell = true
+vim.opt.spellfile = {
+   vault_dir.."/assets/personal.utf-8.add",
+   configdir.."/spell/en.utf-8.add",
+}
 vim.o.spellcapcheck = ""
 
 vim.g.netrw_banner = 0
 vim.g.netrw_browsex_viewer = "xdg-open"
 
-local vault_dir = vim.env.VAULT_DIR or vim.fn.expand("~/vault")
 
 vim.loader.enable()
 
@@ -346,6 +353,7 @@ require("lazy").setup({
             easing = "circular",
             duration_multiplier = 0.5,
             stop_eof = false,
+            cursor_scrolls_alone = false,
          })
          local m = {"n","v","x"}
          local o = {duration = 100}
